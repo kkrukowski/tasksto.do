@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">tasksto.do</string>
+    <string name="login_heading">Logowanie</string>
+    <string name="login_input_placeholder">Nazwa użytkownika</string>
+    <string name="password_input_placeholder">Hasło</string>
+    <string name="login_button">Zaloguj się</string>
+    <string name="register_info">Nie posiadasz konta?</string>
+    <string name="register_link">Zarejestruj się</string>
 </resources>
