@@ -12,4 +12,7 @@ class User : RealmObject {
     var login: String = ""
     var password: String = ""
     var tasks: RealmList<ObjectId> = realmListOf()
+    companion object {
+        var globalUser: User? = null
+    }
 }
