@@ -17,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         val logInBtn = findViewById(R.id.loginBtn) as Button
-
+        val btn_sign_up_login = findViewById<Button>(R.id.btn_sign_up_login)
         logInBtn.setOnClickListener(){
             val loginInput = findViewById(R.id.loginInput) as EditText
             val passwordInput = findViewById(R.id.passwordInput) as EditText
@@ -32,6 +32,13 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java) // tutaj na strone główną
                 startActivity(intent)
             }
+        }
+
+        val btn_sign_up_login = findViewById<Button>(R.id.btn_sign_up_login)
+
+        btn_sign_up_login.setOnClickListener{
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
         }
     }
 }

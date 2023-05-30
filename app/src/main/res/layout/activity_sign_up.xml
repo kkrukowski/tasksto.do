@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDark"
-    tools:context=".LoginActivity">
-
+    tools:context=".SignUpActivity">
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="@string/login_heading"
+            android:text="@string/register_heading"
             android:textColor="@color/primary_text_color"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -57,11 +56,26 @@
             android:id="@+id/passwordInput_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:autofillHints="password"
             android:background="@drawable/custom_text_input"
             android:ems="10"
             android:hint="@string/password_input_placeholder"
+            android:inputType="textPassword"
+            android:paddingStart="16dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="14dp" />
+
+        <EditText
+            android:id="@+id/rePasswordInput_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:autofillHints="password"
+            android:background="@drawable/custom_text_input"
+            android:ems="10"
+            android:hint="@string/repassword_input_placeholder"
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingTop="14dp"
@@ -73,7 +87,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_button"
-            android:text="@string/login_button"
+            android:text="@string/register_link"
             android:textAllCaps="false"
             android:textColor="@color/colorDark"
             android:textSize="18sp"
@@ -89,17 +103,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/register_info"
+                android:text="@string/login_info"
                 android:textColor="@color/primary_text_color"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/btn_sign_up_login"
+                android:id="@+id/btn_login_sign_up"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/register_link"
+                android:text="@string/login_button"
                 android:textAllCaps="false" />
         </LinearLayout>
 
