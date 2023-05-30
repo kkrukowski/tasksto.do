@@ -16,11 +16,11 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val logInBtn = findViewById(R.id.loginBtn) as Button
+        val logInBtn = findViewById(R.id.loginBtn_login) as Button
         val btn_sign_up_login = findViewById<Button>(R.id.btn_sign_up_login)
         logInBtn.setOnClickListener(){
-            val loginInput = findViewById(R.id.loginInput) as EditText
-            val passwordInput = findViewById(R.id.passwordInput) as EditText
+            val loginInput = findViewById(R.id.loginInput_register) as EditText
+            val passwordInput = findViewById(R.id.passwordInput_register) as EditText
 
             Realm.initializeRealm()
             val realm = Realm.getRealmInstance()
@@ -33,9 +33,6 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-
-        val btn_sign_up_login = findViewById<Button>(R.id.btn_sign_up_login)
-
         btn_sign_up_login.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
