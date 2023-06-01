@@ -5,7 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDark"
-    tools:context=".HomeActivity">
+    tools:context=".UserActivity">
+
+    <LinearLayout
+        android:id="@+id/mainScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/taskstodo_logo_desc"
+            app:srcCompat="@drawable/logo_taskstodo" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/user_view_heading"
+            android:textColor="@color/primary_text_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="email@mail.com"
+            android:textColor="@color/primary_text_color"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/logout_Button"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/rounded_red_button"
+            android:text="@string/logout_button"
+            android:textAllCaps="false"
+            android:textColor="@color/colorDark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottomNavigation"
@@ -66,7 +120,7 @@
                         android:background="#00FFFFFF"
                         android:contentDescription="@string/userBtn_desc"
                         android:padding="5dp"
-                        android:src="@drawable/user_icon" />
+                        android:src="@drawable/user_circle_icon" />
 
                     <Space
                         android:layout_width="170dp"

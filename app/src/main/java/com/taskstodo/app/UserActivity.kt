@@ -5,14 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 
-class HomeActivity : AppCompatActivity() {
+class UserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_user)
 
-        val userBtn = findViewById<ImageButton>(R.id.userBtn_bottomMenu)
-        userBtn.setOnClickListener {
-            val intent = Intent(this, UserActivity::class.java)
+        val tasksBtn = findViewById<ImageButton>(R.id.tasksBtn_bottomMenu)
+        tasksBtn.setOnClickListener{
+            val intent = Intent(this, tasksBtn::class.java)
             startActivity(intent)
         }
     }

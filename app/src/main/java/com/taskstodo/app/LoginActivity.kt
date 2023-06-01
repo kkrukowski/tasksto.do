@@ -9,14 +9,12 @@ import com.taskstodo.app.database.Realm
 import com.taskstodo.app.model.User
 import com.taskstodo.app.model.User.Companion.globalUser
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.query.RealmResults
-import org.w3c.dom.Text
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val logInBtn = findViewById(R.id.loginBtn_login) as Button
+        val logInBtn = findViewById(R.id.logout_Button) as Button
         Realm.initializeRealm()
         val btn_sign_up_login = findViewById<Button>(R.id.btn_sign_up_login)
         logInBtn.setOnClickListener(){

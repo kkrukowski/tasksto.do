@@ -9,4 +9,11 @@
     <string name="register_link">Zarejestruj się</string>
     <string name="register_heading">Rejestracja</string>
     <string name="login_info">Posiadasz już konto?</string>
+    <string name="userBtn_desc">User</string>
+    <string name="settingsBtn_desc">Settings</string>
+    <string name="addTaskBtn_desc">Add task</string>
+    <string name="taskstodo_logo_desc">tasksto.do Logo</string>
+    <string name="backBtn_desc">Back</string>
+    <string name="user_view_heading">Profil</string>
+    <string name="logout_button">Wyloguj</string>
 </resources>

@@ -69,7 +69,7 @@
             android:paddingBottom="14dp" />
 
         <Button
-            android:id="@+id/loginBtn_login"
+            android:id="@+id/logout_Button"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_button"

@@ -15,7 +15,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
         val realm = Realm.getRealmInstance()
         val btn_login_sign_up = findViewById<Button>(R.id.btn_login_sign_up)
-        val signUpBtn = findViewById<Button>(R.id.loginBtn_login)
+        val signUpBtn = findViewById<Button>(R.id.logout_Button)
         val loginInput = findViewById<EditText>(R.id.loginInput_register)
         val passwordInput = findViewById<EditText>(R.id.passwordInput_register)
         val rePasswordInput = findViewById<EditText>(R.id.rePasswordInput_register)
