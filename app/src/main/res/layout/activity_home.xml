@@ -77,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#00FFFFFF"
-                        android:contentDescription="@string/settingsBtn_desc"
+                        android:contentDescription="@string/listBtn_desc"
                         android:padding="5dp"
                         android:src="@drawable/list_icon" />
                 </TableRow>

@@ -16,4 +16,9 @@
     <string name="backBtn_desc">Back</string>
     <string name="user_view_heading">Profil</string>
     <string name="logout_button">Wyloguj</string>
+    <string name="listBtn_desc">To Do List</string>
+    <string name="add_task_heading">Dodawanie zadania</string>
+    <string name="add_task_input_placeholder">Nazwa zadania</string>
+    <string name="add_task_btn">Dodaj zadanie</string>
+    <string name="pick_date">Wybierz datę</string>
 </resources>
