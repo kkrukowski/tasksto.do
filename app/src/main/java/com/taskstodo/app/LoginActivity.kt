@@ -14,14 +14,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val logInBtn = findViewById(R.id.logout_Button) as Button
+        println(globalUser)
+        val logInBtn = findViewById(R.id.addTask_Button) as Button
         Realm.initializeRealm()
         val btn_sign_up_login = findViewById<Button>(R.id.btn_sign_up_login)
         logInBtn.setOnClickListener(){
             val loginInput = findViewById(R.id.loginInput_register) as EditText
             val passwordInput = findViewById(R.id.passwordInput_register) as EditText
 
-            Realm.initializeRealm()
             val realm = Realm.getRealmInstance()
             val user: User? = realm.query<User>("login=='${loginInput.text.toString()}' AND password=='${passwordInput.text.toString()}'").first().find()
 
@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
             if (user != null) {
                 println("ZAREJESTROWANO!");
                 globalUser = user
-                val intent = Intent(this, MainActivity::class.java) // tutaj na strone główną
+                val intent = Intent(this, UserActivity::class.java) // tutaj na strone główną
                 startActivity(intent)
             }
         }

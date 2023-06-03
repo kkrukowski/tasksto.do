@@ -48,7 +48,7 @@
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/logout_Button"
+            android:id="@+id/addTask_Button"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
