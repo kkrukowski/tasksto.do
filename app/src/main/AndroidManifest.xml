@@ -15,9 +15,6 @@
             android:name=".AddTaskActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="true" />
-        <activity
             android:name=".UserActivity"
             android:exported="true" />
         <activity

@@ -8,7 +8,7 @@
     tools:context=".AddTaskActivity">
 
     <LinearLayout
-        android:id="@+id/mainScreen"
+        android:id="@+id/tasks_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
@@ -43,7 +43,7 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tasks_list_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -90,7 +90,8 @@
                     android:id="@+id/add_task_date_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_task_btn" />
+                    android:textColor="@color/colorDark"
+                    android:text="@string/pick_date" />
 
                 <TextView
                     android:id="@+id/add_task_date"
@@ -98,9 +99,9 @@
                     android:layout_height="match_parent"
                     android:text="@string/pick_date"
                     android:textAlignment="center"
+                    android:textColor="@color/primary_text_color"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorDark"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
