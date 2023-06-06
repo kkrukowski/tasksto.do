@@ -11,5 +11,6 @@ class Task : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId.invoke()
     var name: String = ""
-    var date: RealmInstant = RealmInstant.now()
+    var date: String = ""
+    var isClosed: Boolean = false
 }

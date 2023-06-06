@@ -15,6 +15,7 @@ import io.realm.kotlin.ext.query
 import io.realm.kotlin.internal.objectIdToRealmObjectId
 import kotlinx.coroutines.CoroutineStart
 import android.widget.TextView
+import org.mongodb.kbson.ObjectId
 import java.util.Calendar
 
 class AddTaskActivity : AppCompatActivity() {
@@ -27,6 +28,8 @@ class AddTaskActivity : AppCompatActivity() {
         val backButton = findViewById<ImageButton>(R.id.backBtn)
         val nameTaskInput = findViewById<EditText>(R.id.taskNameInput)
         val realm = Realm.getRealmInstance()
+        var dateTextData = ""
+        val userId = globalUser?._id
 
 
         backButton.setOnClickListener{
@@ -38,9 +41,14 @@ class AddTaskActivity : AppCompatActivity() {
                 val user: User? = this.query<User>("_id==$0", globalUser?._id).first().find()
                 val task = copyToRealm(Task().apply {
                     name = nameTaskInput.text.toString()
+                    date = dateTextData.toString()
                 })
                 user?.tasks?.add(task._id)
             }
+            globalUser = null
+            val user: User? = realm.query<User>("_id==$0", userId).first().find()
+            globalUser = user
+
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
@@ -56,6 +64,7 @@ class AddTaskActivity : AppCompatActivity() {
         dateBtn.setOnClickListener{
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view, myear, mmonth, mday ->
                 dateText.text = "$mday/${mmonth-1}/$myear"
+                dateTextData = "$mday/${mmonth-1}/$myear"
             }, year, month, day).show()
         }
     }

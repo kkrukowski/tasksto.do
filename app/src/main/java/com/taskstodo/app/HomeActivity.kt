@@ -12,12 +12,21 @@ import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.taskstodo.app.database.Realm
+import com.taskstodo.app.model.Task
+import com.taskstodo.app.model.User
+import com.taskstodo.app.model.User.Companion.globalUser
+import io.realm.kotlin.ext.query
 
 class HomeActivity : AppCompatActivity() {
-    private val tasks = listOf(
+
+    val tasksOfUser = globalUser!!.tasks
+    val realm = Realm.getRealmInstance()
+
+    private val tasks = mutableListOf(
         TaskData("Zadanie 1", "01/06", true),
-        TaskData("Zadanie 2", "04/06", false),
-        TaskData("Zadanie 3", "12/06", false)
+        //TaskData("Zadanie 2", "04/06", false),
+        //TaskData("Zadanie 3", "12/06", false)
     )
 
     private lateinit var openTasks: MutableList<TaskData>
@@ -45,7 +54,12 @@ class HomeActivity : AppCompatActivity() {
         closedTasks = mutableListOf()
         openListView = findViewById(R.id.tasks_to_do_list)
         closedListView = findViewById(R.id.ended_tasks_to_do_list)
-
+        for(taskId in tasksOfUser){
+            val taskFromUser = realm.query<Task>("_id==$0", taskId).first().find()
+            println(taskFromUser!!.name)
+            tasks.add(TaskData(taskFromUser!!.name, taskFromUser!!.date, false))
+        }
+        tasks.add(TaskData("null", "null", false))
         filterTasks()
 
 //        Opened
@@ -56,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
                 if (view == null) {
                     view = LayoutInflater.from(context).inflate(R.layout.task_to_do_list_item, parent, false)
                 }
-
+                println(position)
                 val task = tasks[position]
 
                 val taskName = view?.findViewById<TextView>(R.id.task_name)
