@@ -14,25 +14,43 @@ import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.taskstodo.app.database.Realm
 import com.taskstodo.app.model.Task
-import com.taskstodo.app.model.User
 import com.taskstodo.app.model.User.Companion.globalUser
 import io.realm.kotlin.ext.query
+import android.util.Log
+import io.realm.kotlin.query.RealmResults
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.mongodb.kbson.ObjectId
 
 class HomeActivity : AppCompatActivity() {
 
     val tasksOfUser = globalUser!!.tasks
-    val realm = Realm.getRealmInstance()
 
-    private val tasks = mutableListOf(
-        TaskData("Zadanie 1", "01/06", true),
-        //TaskData("Zadanie 2", "04/06", false),
-        //TaskData("Zadanie 3", "12/06", false)
-    )
+    private val tasks = mutableListOf<TaskData>()
 
     private lateinit var openTasks: MutableList<TaskData>
     private lateinit var closedTasks: MutableList<TaskData>
     private lateinit var openListView: ListView
     private lateinit var closedListView: ListView
+
+    suspend fun closeTaskDb(task: TaskData){
+        print("Zamykanie zadania!")
+        val realm = Realm.getRealmInstance()
+        realm.write {
+            val dbTask = realm.query<Task>("_id == $0", task._id).first().find()
+            dbTask?.isClosed = true
+        }
+        realm.close()
+    }
+
+    suspend fun openTaskDb(task: TaskData){
+        val realm = Realm.getRealmInstance()
+        realm.write {
+            val dbTask = realm.query<Task>("_id == $0", task._id).first().find()
+            dbTask?.isClosed = false
+        }
+        realm.close()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -54,12 +72,14 @@ class HomeActivity : AppCompatActivity() {
         closedTasks = mutableListOf()
         openListView = findViewById(R.id.tasks_to_do_list)
         closedListView = findViewById(R.id.ended_tasks_to_do_list)
+        val realm = Realm.getRealmInstance()
         for(taskId in tasksOfUser){
             val taskFromUser = realm.query<Task>("_id==$0", taskId).first().find()
-            println(taskFromUser!!.name)
-            tasks.add(TaskData(taskFromUser!!.name, taskFromUser!!.date, false))
+            println(taskFromUser!!.name + " " + taskFromUser!!.isClosed)
+
+            tasks.add(TaskData(taskFromUser!!._id, taskFromUser!!.name, taskFromUser!!.date, taskFromUser!!.isClosed))
         }
-        tasks.add(TaskData("null", "null", false))
+        realm.close()
         filterTasks()
 
 //        Opened
@@ -70,8 +90,7 @@ class HomeActivity : AppCompatActivity() {
                 if (view == null) {
                     view = LayoutInflater.from(context).inflate(R.layout.task_to_do_list_item, parent, false)
                 }
-                println(position)
-                val task = tasks[position]
+                val task = openTasks[position]
 
                 val taskName = view?.findViewById<TextView>(R.id.task_name)
                 val taskDate = view?.findViewById<TextView>(R.id.task_date)
@@ -81,7 +100,15 @@ class HomeActivity : AppCompatActivity() {
                 taskDate?.text = task.date
 
                 taskButton?.setOnClickListener {
-                    task.isClosed = !task.isClosed
+                    val taskIndex = tasks.indexOfFirst { it._id == task._id }
+                    tasks[taskIndex].isClosed = true
+                    Log.d("TAG", "Przycisk został kliknięty")
+                    GlobalScope.launch {
+                        closeTaskDb(tasks[taskIndex])
+                    }
+                    filterTasks()
+                    showOpenTasks()
+                    showClosedTasks()
                     notifyDataSetChanged()
                 }
 
@@ -100,7 +127,7 @@ class HomeActivity : AppCompatActivity() {
                     view = LayoutInflater.from(context).inflate(R.layout.task_to_do_list_ended_item, parent, false)
                 }
 
-                val task = tasks[position]
+                val task = closedTasks[position]
 
                 val taskName = view?.findViewById<TextView>(R.id.task_name)
                 val taskDate = view?.findViewById<TextView>(R.id.task_date)
@@ -110,7 +137,14 @@ class HomeActivity : AppCompatActivity() {
                 taskDate?.text = task.date
 
                 taskButton?.setOnClickListener {
-                    task.isClosed = !task.isClosed
+                    val taskIndex = tasks.indexOfFirst { it._id == task._id }
+                    tasks[taskIndex].isClosed = false
+                    val dbTask = realm.query<Task>("_id == $0", task._id).first().find()
+//                    dbTask?.isClosed = false
+                    Log.d("TAG", "Przycisk został kliknięty")
+                    filterTasks()
+                    showClosedTasks()
+                    showOpenTasks()
                     notifyDataSetChanged()
                 }
 
@@ -129,6 +163,24 @@ class HomeActivity : AppCompatActivity() {
                 closedTasks.add(task)
             } else {
                 openTasks.add(task)
+            }
+        }
+    }
+
+    private fun showClosedTasks(){
+        println("Closed tasks")
+        for (task in tasks) {
+            if (task.isClosed) {
+                println(task.name)
+            }
+        }
+    }
+
+    private fun showOpenTasks(){
+        println("Open tasks")
+        for (task in tasks) {
+            if (!task.isClosed) {
+                println(task.name)
             }
         }
     }

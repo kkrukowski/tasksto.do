@@ -1,6 +1,9 @@
 package com.taskstodo.app
 
-class TaskData (
+import org.mongodb.kbson.ObjectId
+
+class TaskData(
+    var _id: ObjectId,
     var name: String,
     var date: String,
     var isClosed: Boolean,
