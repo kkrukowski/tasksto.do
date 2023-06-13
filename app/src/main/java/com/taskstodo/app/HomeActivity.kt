@@ -17,6 +17,7 @@ import com.taskstodo.app.model.Task
 import com.taskstodo.app.model.User.Companion.globalUser
 import io.realm.kotlin.ext.query
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import io.realm.kotlin.query.RealmResults
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,12 +35,12 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var closedListView: ListView
 
     suspend fun closeTaskDb(task: TaskData){
-        print("Zamykanie zadania!")
         val realm = Realm.getRealmInstance()
-        realm.write {
-            val dbTask = realm.query<Task>("_id == $0", task._id).first().find()
+        realm.writeBlocking {
+            val dbTask: Task? = this.query<Task>("_id == $0", task._id).first().find()
             dbTask?.isClosed = true
         }
+        print("Task ended")
         realm.close()
     }
 
@@ -75,11 +76,12 @@ class HomeActivity : AppCompatActivity() {
         val realm = Realm.getRealmInstance()
         for(taskId in tasksOfUser){
             val taskFromUser = realm.query<Task>("_id==$0", taskId).first().find()
-            println(taskFromUser!!.name + " " + taskFromUser!!.isClosed)
+            println(taskFromUser!!.name + " " + taskFromUser.isClosed)
 
-            tasks.add(TaskData(taskFromUser!!._id, taskFromUser!!.name, taskFromUser!!.date, taskFromUser!!.isClosed))
+            tasks.add(TaskData(taskFromUser._id, taskFromUser.name, taskFromUser.date, taskFromUser.isClosed))
         }
         realm.close()
+        showAllTasks()
         filterTasks()
 
 //        Opened
@@ -101,11 +103,10 @@ class HomeActivity : AppCompatActivity() {
 
                 taskButton?.setOnClickListener {
                     val taskIndex = tasks.indexOfFirst { it._id == task._id }
-                    tasks[taskIndex].isClosed = true
-                    Log.d("TAG", "Przycisk został kliknięty")
-                    GlobalScope.launch {
+                    lifecycleScope.launch {
                         closeTaskDb(tasks[taskIndex])
                     }
+                    tasks[taskIndex].isClosed = true
                     filterTasks()
                     showOpenTasks()
                     showClosedTasks()
@@ -164,6 +165,13 @@ class HomeActivity : AppCompatActivity() {
             } else {
                 openTasks.add(task)
             }
+        }
+    }
+
+    private fun showAllTasks(){
+        println("All tasks")
+        for (task in tasks) {
+            println(task.name + " " + task.isClosed)
         }
     }
 
